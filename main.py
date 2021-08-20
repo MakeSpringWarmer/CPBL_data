@@ -3,15 +3,19 @@ from selenium import webdriver
 import time
 import sqlite3
 
-conn = sqlite3.connect('D:/開爬爬起來/batter.db')
+#此程式用於爬取指定野手各年度於一軍之打擊基礎、進階數據並存放於SQLite資料庫中
+
+
+conn = sqlite3.connect("# 此處填入SQLite DB 存放位置")
 cur = conn.cursor()
 try:
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
-    chrome = webdriver.Chrome(options=options, executable_path='D:/開爬爬起來/chromedriver')
+
+    chrome = webdriver.Chrome(options=options, executable_path=#'此處填入chromedriver存放位置')
     # chrome = webdriver.Chrome( executable_path='D:/開爬爬起來/chromedriver')
     chrome.set_page_load_timeout(10)
-    chrome.get('https://www.cpbl.com.tw/team/person?acnt=0000005508')
+    chrome.get('#填入欲查詢之野手網址連結 Ex:https://www.cpbl.com.tw/team/person?acnt=0000005508')
 
     # print(chrome.find_element_by_xpath('//*[@id="Content"]/div[3]/div/div/dl/dt/div[2]').text)
 
