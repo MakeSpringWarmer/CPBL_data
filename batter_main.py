@@ -6,16 +6,16 @@ import sqlite3
 #此程式用於爬取指定野手各年度於一軍之打擊基礎、進階數據並存放於SQLite資料庫中
 
 
-conn = sqlite3.connect("# 此處填入SQLite DB 存放位置")
+conn = sqlite3.connect("D:/CPBL_Data/batter.db")
 cur = conn.cursor()
 try:
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
 
-    chrome = webdriver.Chrome(options=options, executable_path=#'此處填入chromedriver存放位置')
-    # chrome = webdriver.Chrome( executable_path='D:/開爬爬起來/chromedriver')
+    chrome = webdriver.Chrome(options=options, executable_path="D:/CPBL_Data/chromedriver.exe")
+
     chrome.set_page_load_timeout(10)
-    chrome.get('#填入欲查詢之野手網址連結 Ex:https://www.cpbl.com.tw/team/person?acnt=0000005508')
+    chrome.get('https://www.cpbl.com.tw/team/person?acnt=0000005508')
 
     # print(chrome.find_element_by_xpath('//*[@id="Content"]/div[3]/div/div/dl/dt/div[2]').text)
 
@@ -62,6 +62,7 @@ try:
         BABIP = round((float(H)-float(HR))/(float(AB)-float(K)-float(HR)+float(SF)),3)
         XBH = round((float(H2)+float(H3)+float(HR))/float(H),3)
         SecA = round((float(BB)+float(TB)-float(H)+float(SB)-float(CS))/float(AB),3)
+        KBB = round(float(BB)/float(K) , 3 )
         Name = player+"_"+YearTeam
         cur.execute('insert into Batter(Batter_name , Batter_YearTeam , Batter_Game,Batter_PA,Batter_AB,Batter_R,'
                     'Batter_RBI,Batter_K, '
@@ -69,9 +70,9 @@ try:
                     'Batter_TB,Batter_AVG,Batter_OBP, '
                     'Batter_SLG,Batter_OPS,Batter_SB,Batter_CS,Batter_GF,Batter_Isop,Batter_IsoD,Batter_SOpercent,'
                     'Batter_BBpercent,Batter_BIPpercent, '
-                    'Batter_BABIP,Batter_XBH,Batter_SecA) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'
-                    '?,?,?,?,?,?,?)',
-                    (Name,YearTeam,Game,PA,AB,R,RBI,K,BB,HBP,SF,SH,H,H1,H2,H3,HR,TB,AVG,OBP,SLG,OPS,SB,CS,GF,IsoP,IsoD,SOpercent,BBpercent,BIPpercnt,BABIP,XBH,SecA))
+                    'Batter_BABIP,Batter_XBH,Batter_SecA,Batter_KBB) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'
+                    '?,?,?,?,?,?,?,?)',
+                    (Name,YearTeam,Game,PA,AB,R,RBI,K,BB,HBP,SF,SH,H,H1,H2,H3,HR,TB,AVG,OBP,SLG,OPS,SB,CS,GF,IsoP,IsoD,SOpercent,BBpercent,BIPpercnt,BABIP,XBH,SecA,KBB))
         conn.commit()
 
         print(YearTeam)
