@@ -13,7 +13,7 @@ try:
     chrome = webdriver.Chrome(options=options, executable_path="D:/CPBL_Data/chromedriver.exe")
 
     chrome.set_page_load_timeout(10)
-    chrome.get('https://www.cpbl.com.tw/team/person?acnt=0000005508')
+    chrome.get('https://www.cpbl.com.tw/team/person?Acnt=0000004634')
 
     # print(chrome.find_element_by_xpath('//*[@id="Content"]/div[3]/div/div/dl/dt/div[2]').text)
 
